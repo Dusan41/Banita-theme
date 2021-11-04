@@ -1,0 +1,20 @@
+<div class="payment-block">
+    <h4 class="payment-title">{{ settings.methods_of_payment_title }}</h4>
+    <ul class="payment-link list-inline">
+        {% if settings.payments_type == 'icons' %}
+            {% assign icons = settings.payments_icons | split:',' %}
+            {% for icon in icons %}
+                <li><i class="pf {{ icon }}"></i></li>
+            {% endfor %}
+        {% else %}
+            {% for i in (1..10) %}
+                {% capture enable %}icon-pay-{{ i }}_yes{% endcapture %}
+                {% capture pic %}icon-pay-{{ i }}.png{% endcapture %}
+                {% capture alt %}icon-pay-{{ i }}_alt{% endcapture %}
+                {% if settings[enable] %}
+                    <li><img src="{{ pic | asset_img_url: 'master' }}" alt="{{ alt }}"></li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </ul>
+</div>

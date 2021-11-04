@@ -1,0 +1,45 @@
+<h4 class="social-list-title">{{ 'general.theme.stay_with_us' | t }}:</h4>
+<ul class="social-list-simple social-list--color text-inline">
+{% if settings.social_facebook_link != blank %}
+    <li><a target="_blank" href="{{ settings.social_facebook_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+        <i class="icon icon-facebook-logo facebook-color"></i>
+    </a></li>
+{% endif %}
+{% if settings.social_twitter_link != blank %}
+    <li><a target="_blank" href="{{ settings.social_twitter_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+        <i class="icon icon-twitter-logo twitter-color"></i>
+    </a></li>
+{% endif %}
+{% if settings.social_youtube_link != blank %}
+    <li><a target="_blank" class="social-icons__link" href="{{ settings.social_youtube_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}">
+            <i class="icon icon-youtube-logo youtube-color"></i>
+        </a></li>
+{% endif %}
+{% if settings.social_instagram_link != blank %}
+    <li><a target="_blank" href="{{ settings.social_instagram_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+            <i class="icon icon-instagram-logo instagram-color"></i>
+        </a></li>
+{% endif %}
+{% if settings.social_pinterest_link != blank %}
+    <li><a target="_blank" href="{{ settings.social_pinterest_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
+        <i class="icon icon-pinterest-logo pinterest-color"></i>
+    </a></li>
+{% endif %}
+
+{% if settings.social_tumblr_link != blank %}
+    <li><a target="_blank"  href="{{ settings.social_tumblr_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
+        <i class="icon icon-tumblr-logo tumblr-color"></i>
+    </a></li>
+{% endif %}
+{% if settings.social_snapchat_link != blank %}
+    <li><a target="_blank"  href="{{ settings.social_snapchat_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Snapchat' }}">
+        <i class="icon icon-snapchat-logo snapchat-color"></i>
+    </a></li>
+{% endif %}
+
+{% if settings.social_vimeo_link != blank %}
+    <li><a target="_blank"  href="{{ settings.social_vimeo_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Vimeo' }}">
+        <i class="icon icon-vimeo-logo vimeo-color"></i>
+    </a></li>
+{% endif %}
+</ul>

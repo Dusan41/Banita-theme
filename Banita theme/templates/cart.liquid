@@ -1,0 +1,152 @@
+{% if cart.item_count > 0 %}
+  <div class="block  block--no-preload global_width">
+    <div class="container">
+      <div class="title center">
+        <h1>Shopping cart</h1>
+      </div>
+      <form action="/cart" method="post" novalidate class="cart white">
+        <div class="cart-table">
+          <div class="table-header">
+            <div class="photo">
+              {{ 'cart.label.cart_product_image' | t}}
+            </div>
+            <div class="name">
+              {{ 'cart.label.cart_product_name' | t}}
+            </div>
+            <div class="price">
+              {{ 'cart.label.price' | t}}
+            </div>
+            <div class="qty">
+              {{ 'cart.label.quantity_short' | t}}
+            </div>
+            <div class="subtotal">
+              {{ 'cart.label.total' | t}}
+            </div>
+            <div class="remove">
+              <span class="hidden-sm hidden-xs">{{ 'cart.general.remove' | t}}</span>
+            </div>
+          </div>
+          {% for item in cart.items %}
+            <div class="table-row">
+              <div class="photo">
+                <a href="{{ item.url | within: collections.all }}" ><img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}"></a>
+              </div>
+              <div class="name">
+                <a href="{{ item.url }}">
+                  {{ item.product.title }}
+                </a>
+                {% unless item.variant.title contains 'Default' %}
+                <br>
+                <small>{{ item.variant.title }}</small>
+                {% endunless %}
+
+                {% comment %}
+                <p>{{ item.vendor }}</p>
+                {% endcomment %}
+
+
+                {% assign propertySize = item.properties | size %}
+                {% if propertySize > 0 %}
+                  {% for p in item.properties %}
+                    {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                    {% unless p.last == blank or first_character_in_key == '_' %}
+                    <br>
+                    {{ p.first }}:
+
+                    {% comment %}
+                    Check if there was an uploaded file associated
+                    {% endcomment %}
+                    {% if p.last contains '/uploads/' %}
+                      <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                    {% else %}
+                      {{ p.last }}
+                    {% endif %}
+
+                    {% endunless %}
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <div class="price">
+                {{ item.price | money }}
+              </div>
+              <div class="qty qty-changer">
+                <fieldset>
+                  <input type="button" value="&#x2212;" class="decrease">
+                  <input type="text" class="qty-input" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" data-min="0">
+                  <input type="button" value="+" class="increase">
+                </fieldset>
+              </div>
+              <div class="subtotal">
+                {% if item.original_line_price != item.line_price %}
+                  <small class="cart-item__original-price"><s>{{ item.original_line_price | money }}</s></small>
+                {% endif %}
+                {{ item.line_price | money }}
+                {% if item.original_line_price != item.line_price %}
+                  {% for discount in item.discounts %}
+                    <small class="cart-item__discount">
+                      {{ discount.title }}
+                    </small>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <div class="remove">
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="icon icon-close-2"></a>
+              </div>
+            </div>
+          {% endfor %}
+          <div class="table-footer text-center">
+            <a class="btn btn-alt" href="{{ shop.url }}">{{ 'cart.general.continue' | t }}</a>
+            <a class="btn btn-alt " href="/cart/clear"><i class="icon icon-bin"></i><span>{{ 'cart.general.clear' | t }}</span></a>
+            <button class="btn btn-alt" type="submit" name="update"><i class="icon icon-sync"></i><span>{{ 'cart.general.update' | t }}</span></button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 total-wrapper">
+            <table class="total-price">
+              {% if cart.total_discounts > 0 %}
+                {% assign savings = cart.total_discounts | money %}
+                <tr>
+                  <td colspan="2">{{ 'cart.general.savings_html' | t: price: savings }}</td>
+                </tr>
+              {% endif %}
+              <tr  class="total">
+                <td>{{ 'cart.general.subtotal' | t }}</td>
+                <td>{{ cart.total_price | money }}</td>
+              </tr>
+            </table>
+            <div class="cart-action">
+              <div><button class="btn" type="submit" name="checkout">{{ 'cart.general.checkout_procees' | t }}</button></div>
+              {% if additional_checkout_buttons %}
+                <div class="cart__additional_checkout">{{ content_for_additional_checkout_buttons }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-5 m-t-sm">
+            {% include 'shipping-calculator' %}
+          </div>
+          {% if settings.cart_notes_enable %}
+            {% assign noteSize = cart.note | size %}
+            <div class="col-sm-6 col-md-4 m-t-sm">
+              <h2>{{ 'cart.general.note' | t }}</h2>
+              <label>{{ 'cart.general.note_desc' | t }}</label>
+              <textarea class="form-control dashed"  name="note"  id="CartSpecialInstructions">{{ cart.note }}</textarea>
+            </div>
+          {% endif %}
+        </div>
+      </form>
+    </div>
+  </div>
+{% else %}
+  <div class="block  block--no-preload fullheight">
+    <div class="container">
+      <div class="empty-cart text-center">
+        <div class="empty-cart-text">{{ 'general.theme.empty_cart_1' | t }}</div>
+        <div class="empty-cart-icon">
+          <i class="icon-basket"></i>
+        </div>
+        <div><a href="#" onclick="history.go(-1);return false;" class="btn btn-alt btn-lg">{{ 'general.theme.back' | t }}</a></div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+

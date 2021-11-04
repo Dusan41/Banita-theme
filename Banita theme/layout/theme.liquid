@@ -1,0 +1,18 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"  itemscope itemtype="http://schema.org/WebPage"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ shop.locale }}"  itemscope itemtype="http://schema.org/WebPage"> <!--<![endif]-->
+<head>
+  {% include 'head' %}
+  {{content_for_header}}
+</head>
+<body class="page-{{ template }} {% if settings.boxed %}boxed{% else %}fullwidth{% endif %}  {% if settings.ajax_cart %}ajax_cart{% endif %} {% if settings.rtl or template contains 'rtl' %}rtl{% endif %} {% if settings.rounded %}rounded{% endif %} {% if settings.megamenu_spy_navigation %}has-spymenu{% endif %} {% if settings.checkout_popup %}checkout-popup{% endif %} {{ settings.loader }} {% if settings.previews_height_yes %}equal-height{% endif %} ">
+  {% if settings.loader == 'body-loader' %}<div class="bodyLoader js-bodyloader"></div>{% endif %}
+  {% section 'topline' %}
+  {% section 'header' %}
+  <main class="page-main">
+    {{content_for_layout}}
+  </main>
+  {% section 'footer' %}
+  {% include 'before_body_end' %}
+</body>
+</html>

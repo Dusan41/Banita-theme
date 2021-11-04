@@ -1,0 +1,221 @@
+{% if section.settings.enable %}
+    {% if section.settings.title != blank %}
+    <div class="block fullboxed {{ section.settings.outer_margin }} welcome-txt">
+        {% if section.settings.title != blank or section.settings.description != blank %}
+        <div class="container">
+            <h1 class="text-center h-lg">{{ section.settings.title }}</h1>
+            <p class="text-center">{{ section.settings.description }}</p>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+<div class="block {{ section.settings.block_width }} {% if section.settings.title != blank or section.settings.description != blank %}offset-top-negative-100{% endif %}">
+    <div class="container">
+        <div class="row row-flex-sm no-gutter promo-box-row">
+            <div class="col-sm-4">
+                <a {% if section.settings.link_1 %}href="{{ section.settings.link_1 }}"  target="{{ section.settings.link_target_1 }}"{% endif %} class="promo-box text-center">
+                    <div class="promo-box-icon"><i class="icon {{ section.settings.box_1_icon }}"></i></div>
+                    <h3 class="promo-box-title">{{ section.settings.box_1_caption_1 }}</h3>
+                    <div class="promo-box-text">{{ section.settings.box_1_caption_2 }}</div>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a {% if section.settings.link_2 %}href="{{ section.settings.link_2 }}"  target="{{ section.settings.link_target_2 }}"{% endif %} class="promo-box text-center">
+                    <div class="promo-box-icon"><i class="icon {{ section.settings.box_2_icon }}"></i></div>
+                    <h3 class="promo-box-title">{{ section.settings.box_2_caption_1 }}</h3>
+                    <div class="promo-box-text">{{ section.settings.box_2_caption_2 }}</div>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a {% if section.settings.link_3 %}href="{{ section.settings.link_3 }}"  target="{{ section.settings.link_target_3 }}"{% endif %} class="promo-box text-center">
+                    <div class="promo-box-icon"><i class="icon {{ section.settings.box_3_icon }}"></i></div>
+                    <h3 class="promo-box-title">{{ section.settings.box_3_caption_1 }}</h3>
+                    <div class="promo-box-text">{{ section.settings.box_3_caption_2 }}</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% schema %}
+{
+"name": "Welcome to",
+"class": "index-section",
+"settings": [
+{
+"type": "checkbox",
+"id": "enable",
+"label": "Enable",
+"default": true
+},
+{
+"type": "header",
+"content": "Layout"
+},
+{
+"type":"select",
+"id":"block_width",
+"label":"Width",
+"options":[
+{"value":"boxed","label":"Boxed"},
+{"value":"fullwidth","label":"Fullwidth"},
+{"value":"global_width","label":"Use global site width"}
+],
+"default":"global_width",
+"info":"click Save to see changes"
+},
+{
+"type": "select",
+"id": "outer_margin",
+"label": "Outer top margin",
+"options":[
+{"value":"offset-top-0","label":"None"},
+{"value":"offset-top-30","label":"30px"},
+{"value":"offset-top-40","label":"40px"},
+{"value":"offset-top-50","label":"50px"}
+],
+"default": "offset-top-50"
+},
+{
+"type": "header",
+"content": "General"
+},
+{
+"type": "text",
+"id": "title",
+"label": "Title",
+"default":"Welcome to <span class='custom-color'>B</span>ANITA store"
+},
+{
+"type": "textarea",
+"id": "description",
+"label": "Description",
+"default":"Dolor sit amet, ex eam mundi populo accusamus, aliquam quaestio petentium te cum tacimates, usu cu iudico graeco. Graeci eripuit inimicus vel eu eu mel unum laoreet splendide, cu integre apeirian has"
+},
+{
+"type": "header",
+"content": "Info Box 1"
+},
+{
+"type": "url",
+"id": "link_1",
+"label": "Link"
+},
+{
+"type": "select",
+"id": "link_target_1",
+"label": "Link Target",
+"default":"_self",
+"options": [
+{ "value": "_blank", "label": "New page" },
+{ "value": "_self",  "label": "In current page" }
+]
+},
+{
+"type": "text",
+"id": "box_1_icon",
+"label": "Icon",
+"default":"icon-truck",
+"info":"all icon's codes you can find in theme package/Documentation/fonts/icomoon-reg/demo.html"
+},
+{
+"type": "text",
+"id": "box_1_caption_1",
+"label": "Caption 1",
+"default":"FREE SHIPPING"
+},
+
+{
+"type": "textarea",
+"id": "box_1_caption_2",
+"label": "Caption 2",
+"default":"Free shipping on all orders over $199"
+},
+{
+"type": "header",
+"content": "Info Box 2"
+},
+{
+"type": "url",
+"id": "link_2",
+"label": "Link"
+},
+{
+"type": "select",
+"id": "link_target_2",
+"label": "Link Target",
+"default":"_self",
+"options": [
+{ "value": "_blank", "label": "New page" },
+{ "value": "_self",  "label": "In current page" }
+]
+},
+{
+"type": "text",
+"id": "box_2_icon",
+"label": "Icon",
+"default":"icon-dollar",
+"info":"all icon's codes you can find in theme package/Documentation/fonts/icomoon-reg/demo.html"
+},
+{
+"type": "text",
+"id": "box_2_caption_1",
+"label": "Caption 1",
+"default":"MONEY BACK"
+},
+
+{
+"type": "textarea",
+"id": "box_2_caption_2",
+"label": "Caption 2",
+"default":"100% money back guarantee"
+},
+{
+"type": "header",
+"content": "Info Box 3"
+},
+{
+"type": "url",
+"id": "link_3",
+"label": "Link"
+},
+{
+"type": "select",
+"id": "link_target_3",
+"label": "Link Target",
+"default":"_self",
+"options": [
+{ "value": "_blank", "label": "New page" },
+{ "value": "_self",  "label": "In current page" }
+]
+},
+{
+"type": "text",
+"id": "box_3_icon",
+"label": "Icon",
+"default":"icon-help",
+"info":"all icon's codes you can find in theme package/Documentation/fonts/icomoon-reg/demo.html"
+},
+{
+"type": "text",
+"id": "box_3_caption_1",
+"label": "Caption 1",
+"default":"ONLINE SUPPORT"
+},
+
+{
+"type": "textarea",
+"id": "box_3_caption_2",
+"label": "Caption 2",
+"default":"Service support fast 24/7"
+}
+],
+"presets": [
+{
+"name": "Welcome To",
+"category": "Text"
+}
+]
+}
+{% endschema %}
